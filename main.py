@@ -1,11 +1,15 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import copy
+import varlis
+
 
 lista_id_jogos = []
 lista_elementos = []
+lista_elementos_comemtarios = []
 lista_links =[]
-
+lista_iddata = []
+n = 0
 
 def Create_Driver(data_start, data_end):
 
@@ -16,38 +20,54 @@ def Create_Driver(data_start, data_end):
 
     for data in range(data_start, (data_end + 1)):
 
-        print(data)
+        print(f"Coferindo os jogos do dia {data}")               
 
-        driver.get(f"https://www.espn.com.br/futebol/resultados/_/data/{str(data)}")
+        driver.get(f"https://www.espn.com.br/futebol/resultados/_/data/{str(data)}")    
 
-        Get_Links(driver)
+        lista_elementos = driver.find_elements(By.LINK_TEXT, "Resumo")
 
+        print("------------------------------------------------------")
+        print(f"Quantidade de elementos em lista_elementos{len(lista_elementos)}")
+        for elemento in lista_elementos:
+            print(f"--Capturando os links dos jogos do dia {data}")
+            lista_links.append(elemento.get_attribute("href"))       
+                
+        print("------------------------------------------------------") 
+        print(f"Quantidade de links em lista_links{len(lista_links)}")
+        for link in lista_links:
+            print(f"----Corrigindo links dos jogos")
+            link_quebrado = link.split('/')   
+            lista_iddata.append(link_quebrado[-2])
+            lista_iddata.append(data)
+            print(f"---- Salvando na Lista de IDs a ID {lista_iddata[0]}")
+            print(f"---- Salvando na Lista de IDs a Data {lista_iddata[1]}")
+            lista_id_jogos.append(copy.copy(lista_iddata))      
+            
+            lista_iddata.clear()
+        
+        lista_elementos.clear()
+        lista_links.clear()
+        
+            
+           
+    print(lista_id_jogos)    
+    
     driver.quit()
     
-
-def Get_Links(driver):
-
-    driver = driver
-
-    lista_elementos = driver.find_elements(By.LINK_TEXT, "Resumo")
-
-    for i in lista_elementos:
-        lista_links.append(i.get_attribute("href"))
-    for i in lista_links:
-        link_quebrado = i.split('/')   
-        print(f"Link Quebrado {link_quebrado}")
-        lista_id_jogos.append(link_quebrado[-2])
     
-    print(lista_id_jogos)
     
-
 def Get_Comentarios():
-
+    
+    global lista_elementos_comemtarios
     driver = webdriver.Chrome()
 
     for i in lista_id_jogos:
-        driver.get(f"https://www.espn.com.br/futebol/comentario/_/jogoId/{str(i)}")
+        driver.get(f"https://www.espn.com.br/futebol/comentario/_/jogoId/{str(i[0])}")
+        elementos_comentarios = driver.find_elements(By.CLASS_NAME, "Table__TR--sm")
+        lista_elementos_comemtarios.append(copy.copy(elementos_comentarios))
+        elementos_comentarios.clear()
     driver.quit()
+    
 
 
 
