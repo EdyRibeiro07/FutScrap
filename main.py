@@ -1,82 +1,61 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import copy
-import varlis
+import requests
+from bs4 import BeautifulSoup
+
+# Importações Locais
+from scrapdom import ScrapDOM
+from findelementos import Find_Elementos
+
+ids = [732808, 732809]
+
+for id_ in ids:
+    
+    dom = ScrapDOM(id_)
+    
+    equipes = Find_Equipes(dom, 'span', class_, 'NMnSM')
+    
+    
+   
+    
+    # elementos = dom.find_all('div', class_='MatchCommentary__Comment')
 
 
-lista_id_jogos = []
-lista_elementos = []
-lista_elementos_comemtarios = []
-lista_links =[]
-lista_iddata = []
-n = 0
+# tempo = 2
 
-def Create_Driver(data_start, data_end):
+# for elemento in elementos:
 
-    data_start = data_start
-    data_end = data_end
+    
 
-    driver = webdriver.Chrome()
+    # minuto_tag = elemento.find(class_ = "MatchCommentary__Comment__Timestamp")
+    # evento_base = elemento.find("svg", class_ = "MatchCommentary__Comment__PlayIcon__Icon")
+    # narracao_base = elemento.find("div", class_ = "MatchCommentary__Comment__GameDetails")
+    # narracao = narracao_base.text if narracao_base else None
+    # if minuto_tag and evento_base:
+        # minuto_text = minuto_tag.text
+        # minuto_sem = minuto_text.replace("'", "")
 
-    for data in range(data_start, (data_end + 1)):
+        # if "+" in minuto_sem:
+            # minuto_separado = minuto_sem.split("+")
 
-        print(f"Coferindo os jogos do dia {data}")               
+        # if len(minuto_separado) > 1:
+            # minuto_separado[0] =  int(minuto_separado[0])
+            # minuto_separado[1] =  int(minuto_separado[1])
+        # else:
+            # minuto_separado[0] =  int(minuto_separado[0])
 
-        driver.get(f"https://www.espn.com.br/futebol/resultados/_/data/{str(data)}")    
 
-        lista_elementos = driver.find_elements(By.LINK_TEXT, "Resumo")
+        # minuto = minuto_separado[0]+ minuto_separado[1]
 
-        print("------------------------------------------------------")
-        print(f"Quantidade de elementos em lista_elementos{len(lista_elementos)}")
-        for elemento in lista_elementos:
-            print(f"--Capturando os links dos jogos do dia {data}")
-            lista_links.append(elemento.get_attribute("href"))       
-                
-        print("------------------------------------------------------") 
-        print(f"Quantidade de links em lista_links{len(lista_links)}")
-        for link in lista_links:
-            print(f"----Corrigindo links dos jogos")
-            link_quebrado = link.split('/')   
-            lista_iddata.append(link_quebrado[-2])
-            lista_iddata.append(data)
-            print(f"---- Salvando na Lista de IDs a ID {lista_iddata[0]}")
-            print(f"---- Salvando na Lista de IDs a Data {lista_iddata[1]}")
-            lista_id_jogos.append(copy.copy(lista_iddata))      
-            
-            lista_iddata.clear()
+        # evento = evento_base.get("aria-label") # Usar .get() é mais seguro, pois retorna None se o atributo não existir
         
-        lista_elementos.clear()
-        lista_links.clear()
-        
-            
-           
-    print(lista_id_jogos)    
-    
-    driver.quit()
-    
-    
-    
-def Get_Comentarios():
-    
-    global lista_elementos_comemtarios
-    driver = webdriver.Chrome()
+        # if evento == "Intervalo":
+            # tempo = tempo - 1
 
-    for i in lista_id_jogos:
-        driver.get(f"https://www.espn.com.br/futebol/comentario/_/jogoId/{str(i[0])}")
-        elementos_comentarios = driver.find_elements(By.CLASS_NAME, "Table__TR--sm")
-        lista_elementos_comemtarios.append(copy.copy(elementos_comentarios))
-        elementos_comentarios.clear()
-    driver.quit()
-    
-
-
-
-
-print("Abaixo Informe o Peródo de Raspagem. Modelo da Data: 20250831 ")
-print("O Período Deve ser Dentro do Intervalo de um Mesmo Mês ")
-
-data_start = int(input("Digite a Data Inícial do Período: "))
-data_end = int(input("Digite a Data Final do Período: "))
-
-Create_Driver(data_start, data_end)
-Get_Comentarios()
+        # print(f"Minuto: {minuto} Tempo {tempo}")
+        # print(f"Evento: {evento}")
+        # print(f"Narração: {narracao}")
+    # else:
+        # # Opcional: Imprima uma mensagem se algum elemento não for encontrado para depuração
+        # if not minuto_tag:
+            # print("Aviso: Tag de minuto não encontrada para este elemento.")
+        # if not evento_base:
+            # print("Aviso: Tag de evento (svg) não encontrada para este elemento.")
