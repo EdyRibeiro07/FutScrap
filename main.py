@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 # Importações Locais
 from scrapdom import ScrapDOM
-from findelementos import Find_Elementos
+from findelements import Find_Elementos
 
 ids = [732808, 732809]
 
@@ -11,7 +11,7 @@ for id_ in ids:
     
     dom = ScrapDOM(id_)
     
-    equipes = Find_Equipes(dom, 'span', class_, 'NMnSM')
+    equipes = Find_Elements(dom, 'span', "class", 'NMnSM')
     
     
    
