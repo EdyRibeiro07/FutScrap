@@ -1,7 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-def Find_Elements(dom, tag, att, text ):
-	if att == "class":
-        lista_elementos = dom.find_all(tag, class_ = text)
-        print("ok")
+
+def Find_Elements(list_doms:list):
+    
+    for dom in list_doms:
+        list_elements = dom.find_all('span', class_ = 'NMnSM') 
+        print(f"{list_elements[0].text} VS {list_elements[1].text}")
+
+    

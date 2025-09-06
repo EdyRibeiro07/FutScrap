@@ -2,16 +2,21 @@ import requests
 from bs4 import BeautifulSoup
 
 # Importações Locais
-from scrapdom import ScrapDOM
-from findelements import Find_Elementos
+import scrapdom
+import findelements
+import createdate
+import options
 
-ids = [732808, 732809]
+options.Options()
 
-for id_ in ids:
+
+
+
+
     
-    dom = ScrapDOM(id_)
+#dom = scrapdom.Scrap_DOM(url_, serial_)
     
-    equipes = Find_Elements(dom, 'span', "class", 'NMnSM')
+#equipes = findelements.Find_Elements(dom, 'span', 'equipes', 'NMnSM')
     
     
    
