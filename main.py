@@ -2,26 +2,24 @@ import requests
 from bs4 import BeautifulSoup
 
 # Importações Locais
-import scrapdom
-import findelements
-import createdate
+
+
+
 import options
 
-options.Options()
+thelist = []
+thelist = options.Options()
 
 
 
 
 
-    
-#dom = scrapdom.Scrap_DOM(url_, serial_)
-    
-#equipes = findelements.Find_Elements(dom, 'span', 'equipes', 'NMnSM')
+
     
     
    
     
-    # elementos = dom.find_all('div', class_='MatchCommentary__Comment')
+# elementos = dom.find_all('div', class_='MatchCommentary__Comment')
 
 
 # tempo = 2

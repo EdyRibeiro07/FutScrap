@@ -5,17 +5,17 @@ import time
 
 import createdate
 import scrapdom
-import findelements
+import getelements
 import scrapids
-
-url_id = "https://www.espn.com.br/futebol/comentario/_/jogoId/"
-url_date = "https://www.espn.com.br/futebol/resultados/_/data/"
 
 
 opts = [1, 2]
 opt = None
 
 def Options():
+    
+    url_id = "https://www.espn.com.br/futebol/comentario/_/jogoId/"
+    url_date = "https://www.espn.com.br/futebol/resultados/_/data/"
 
     os.system('cls')
     
@@ -23,16 +23,18 @@ def Options():
     print("1 - RASPAGEM DE DADOS / ATUALIZAR A DATABASE")
     print("2 - UTILIAZR O SITEMA DE ESTATISTICAS, CHRATOS")
     
-    opt = int(input("::: "))
+    opt = input("::: ")
     
-    if opt in opts:
+    
+    if opt.isdigit():
         
-        if opt == 1:
+        
+        if int(opt) == 1:
             list_date = createdate.Create_Date()
-            list_doms = scrapdom.Scrap_DOM(url_date, list_date) 
+            list_doms = scrapdom.Scrap_DOM(url_date, list_date, 1) 
             list_ids = scrapids.Scrap_IDS(list_doms)
-            list_doms = scrapdom.Scrap_DOM(url_id, list_ids)
-            findelements.Find_Elements(list_doms)
+            list_doms = scrapdom.Scrap_DOM(url_id, list_ids, 2)
+            thelist = getelements.Get_Elements(list_doms)
         else:
             pass
 
@@ -41,6 +43,6 @@ def Options():
         time.sleep(3)
         Options()
         
-        
+    return thelist    
     
     
