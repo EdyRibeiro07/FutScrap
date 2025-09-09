@@ -9,7 +9,7 @@ import getelements
 import scrapids
 
 
-opts = [1, 2]
+opts = ["1", "2"]
 opt = None
 
 def Options():
@@ -23,25 +23,22 @@ def Options():
     print("1 - RASPAGEM DE DADOS / ATUALIZAR A DATABASE")
     print("2 - UTILIAZR O SITEMA DE ESTATISTICAS, CHRATOS")
     
-    opt = input("::: ")
-    
-    
-    if opt.isdigit():
+    opt = str(input("::: "))    
+            
         
-        
-        if int(opt) == 1:
-            list_date = createdate.Create_Date()
-            list_doms = scrapdom.Scrap_DOM(url_date, list_date, 1) 
-            list_ids = scrapids.Scrap_IDS(list_doms)
-            list_doms = scrapdom.Scrap_DOM(url_id, list_ids, 2)
-            thelist = getelements.Get_Elements(list_doms)
-        else:
-            pass
-
+    if opt == "1":
+        list_date = createdate.Create_Date()
+        list_doms = scrapdom.Scrap_DOM(url_date, list_date, 1) 
+        list_ids = scrapids.Scrap_IDS(list_doms)
+        list_doms = scrapdom.Scrap_DOM(url_id, list_ids, 2)
+        thelist = getelements.Get_Elements(list_doms)
     else:
         print("DIGITE UM ARGUMENTO VÁLIDO !")
         time.sleep(3)
         Options()
+
+    
+            
         
     return thelist    
     
