@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from copy import copy
 
 # Importações Locais
+#Teste Git
 
 
 
