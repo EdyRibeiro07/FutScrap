@@ -1,6 +1,5 @@
 def Treat_The_Date(date_element):
 
-    text_03 = None
     zero = "0"
 
     text_01 = date_element.text
@@ -40,8 +39,7 @@ def Treat_The_Date(date_element):
     text_07 = text_06.replace(" ", "")
 
     count_text_07 = len(text_07)
-    print(f"Quantidade de caractéres: {count_text_07}")
-
+ 
     if count_text_07 <= 7:
         text_08 = zero + text_07
     else:

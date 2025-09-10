@@ -15,7 +15,7 @@ def Scrap_DOM(url_, list_, stage_):
     
     list_doms = []
     
-    print("**********INICIADO CONEXÃO")
+    print("*****NICIADO CONEXÃO*****")
     
     for i in list_:
         
@@ -47,7 +47,7 @@ def Scrap_DOM(url_, list_, stage_):
 
                 print(f"{count} REQUISIÇÃO BEM SUCEDIDA!")
                 list_doms.append(copy.copy(dom))
-                print("**********DOM RASPADO COM SUCESSO")
+                print("**DOM RASPADO COM SUCESSO**")
 
         except requests.exceptions.RequestException as e:
             
