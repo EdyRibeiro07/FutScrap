@@ -1,3 +1,7 @@
+#ATENÇÃO AO PARAMENTRO DA FUNÇÃO QUE PARA FINS DE TESTES FOI ALTERADO
+#TAMBEM FOI ALTERADO O ITEN DE INTERAÇÃO DO PRIMEIRO FOR DA FUNÇÃO
+
+
 from bs4 import BeautifulSoup
 from copy import copy
 
@@ -6,16 +10,27 @@ from copy import copy
 import treatthedate
 import getcomments
 
+list_temp = []
 
-def Get_Elements(list_doms:list):
+with open("html.md", "r") as arquivo_01:
+    arquivo_02 =arquivo_01.read()
+    arquivo_03 = BeautifulSoup(arquivo_02, "html.parser")
+    list_temp.append(arquivo_03)
 
+
+
+def Get_Elements(a): ### em produção o paramentro correto é "list_doms:list"
+
+    
     thelist = []
     list_ = []
    
     
-    for dom in list_doms:
+    for dom in a: ### em produção o paramentro correto é "list_doms"
         element_tour = dom.find('span', class_ ='XSdof')
         list_teams = dom.find_all('span', class_ = 'NMnSM') 
+        team_home = list_teams[0].text.strip()
+        team_visit = list_teams[1].text.strip()
         info = dom.find('div', class_="ContentList") 
         comments_elements = dom.find_all('div', class_ = 'MatchCommentary__Comment')       
         
@@ -39,23 +54,26 @@ def Get_Elements(list_doms:list):
 
         #SCRAP COMENTS:::
 
-        for element in comments_elements:
-            comment = getcomments.Get_Comments(element)
+        for element in list_temp: # PARÂMETRO ORIGINAL DO FOR 'comments_elements'
+            comment = getcomments.Get_Comments(element, team_home, team_visit) 
             print(comment)
+ 
         
         
         #APPENDS
-        list_.append(copy(date))
-        list_.append(copy(city))
-        list_.append(copy(country))
-        list_.append(copy(stadium.text))
-        list_.append(copy(element_tour.text))
-        list_.append(copy(list_teams[0].text))
-        list_.append(copy(list_teams[1].text))
-        list_.append(copy(public_03))
+        list_.append(copy(date.strip()))
+        list_.append(copy(city.strip()))
+        list_.append(copy(country.strip()))
+        list_.append(copy(stadium.text.strip()))
+        list_.append(copy(element_tour.text.strip()))
+        list_.append(copy(team_home.upper()))
+        list_.append(copy(team_visit.upper()))
+        list_.append(copy(public_03.strip()))
         thelist.append(copy(list_))
 
-        print(f"{date} - {city}, {country} / {stadium.text} - {element_tour.text} - {list_teams[0].text} VS {list_teams[1].text} - {public_03}")
+        for i in thelist:
+            print("")
+            print(i)
         
         list_.clear()
     

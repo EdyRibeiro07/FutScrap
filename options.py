@@ -35,8 +35,10 @@ def Options():
         list_doms = scrapdom.Scrap_DOM(url_date, list_date, 1) 
         list_ids = scrapids.Scrap_IDS(list_doms)
         list_doms = scrapdom.Scrap_DOM(url_id, list_ids, 2)
-        thelist = getelements.Get_Elements(list_doms)
-    else:
+
+        
+
+        thelist = getelements.Get_Elements(list_doms) 
         print("DIGITE UM ARGUMENTO VÁLIDO !")
         time.sleep(3)
         Options()
