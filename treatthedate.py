@@ -2,8 +2,8 @@ def Treat_The_Date(date_element):
 
     zero = "0"
 
-    text_01 = date_element.text
-    text_02 = text_01[7:]
+    text_01 = date_element.text.strip()
+    text_02 = text_01[6:]
     
     if "janeiro" in text_02:
         text_03 = text_02.replace("janeiro", "01")
@@ -38,6 +38,7 @@ def Treat_The_Date(date_element):
     text_06 = text_05.replace("de", "")
     text_07 = text_06.replace(" ", "")
 
+
     count_text_07 = len(text_07)
  
     if count_text_07 <= 7:
@@ -45,5 +46,6 @@ def Treat_The_Date(date_element):
     else:
         text_08 =  text_07
 
+    print("DATA TRATADA: ", text_08.strip())
 
     return text_08

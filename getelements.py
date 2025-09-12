@@ -66,8 +66,8 @@ def Get_Elements(a): ### em produção o paramentro correto é "list_doms:list"
         list_.append(copy(country.strip()))
         list_.append(copy(stadium.text.strip()))
         list_.append(copy(element_tour.text.strip()))
-        list_.append(copy(team_home.upper()))
-        list_.append(copy(team_visit.upper()))
+        list_.append(copy(team_home))
+        list_.append(copy(team_visit))
         list_.append(copy(public_03.strip()))
         thelist.append(copy(list_))
 
