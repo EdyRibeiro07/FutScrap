@@ -1,6 +1,6 @@
 def Get_Comments(element, team_home, team_visit):    
-    home_fouls = []
-    visit_fouls = []
+    home_fouls_first_time = []
+    visit_fouls_first_time = []
 
     elements = element.find_all('div', class_ = 'MatchCommentary__Comment')
 
@@ -10,12 +10,9 @@ def Get_Comments(element, team_home, team_visit):
         minute_element = e.find('div', class_ = 'MatchCommentary__Comment__Timestamp')  
         minute_01 = minute_element.text.strip()
         minute_02 = minute_01.replace("'", "")
-        minute_03 = minute_02.split("+")
-        for m in minute_03:
-            a = m
-            if m != '-':
-                a =+ int(m)
-        print(a)
+        if minute_02 != "-" and minute_02 != "":
+            minute_03 = int(eval(minute_02))
+
 
 
 
@@ -24,12 +21,12 @@ def Get_Comments(element, team_home, team_visit):
 
         if "FALTA COMETIDA" in comment_01:
             if team_home.upper() in comment_01:
-                home_fouls.append(minute_element.text.strip())
+                home_fouls_first_time.append(minute_03)
             if team_visit.upper() in comment_01:
-                visit_fouls.append(minute_element.text.strip())
+                visit_fouls_first_time.append(minute_03)
 
 
         print(comment_01.strip())
         print("-----------------------------------")
     
-    print(home_fouls, visit_fouls)
+    print(home_fouls_first_time, visit_fouls_first_time)
