@@ -1,13 +1,9 @@
 from copy import copy
 from bs4 import BeautifulSoup
 
+import dict_main
+
 def Get_Comments(element, team_home, team_visit):    
-    fouls = []
-    conner = []
-    shots_block = []
-    lost_opportunuty = []
-    kick_saved = []
-    offside = []
 
     home_fouls_first_time = []
     visit_fouls_first_time = []
@@ -185,10 +181,21 @@ def Get_Comments(element, team_home, team_visit):
 
         if "IMPEDIMENTO" in comment_01:
 
-            if minute_03 < 75 and time == 2:
+            if minute_03 < 90 and time == 2 and "+" in minute_02:         
+                 
+    
+                time = 1
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if team_home.upper() in comment_01:
+
+                    home_offside_first_time.append(minute_03)
+
+                if team_visit.upper() in comment_01:
+
+                    visit_offside_first_time.append(minute_03)
+
+            if minute_03 < 90 and time == 1 and "+" in minute_02:         
+                 
 
                 if team_home.upper() in comment_01:
 
@@ -208,6 +215,16 @@ def Get_Comments(element, team_home, team_visit):
 
                     visit_offside_second_time.append(minute_03)
 
+            if minute_03 <= 45 and time == 1: 
+                
+                if team_home.upper() in comment_01:
+
+                    home_offside_first_time.append(minute_03)
+
+                if team_visit.upper() in comment_01:
+
+                    visit_offside_first_time.append(minute_03)
+
        
         
         
@@ -216,41 +233,61 @@ def Get_Comments(element, team_home, team_visit):
         
         
         # APPENDS
-    
-    
-    fouls.append(copy(home_fouls_first_time))
-    fouls.append(copy(home_fouls_second_time))
-    fouls.append(copy(visit_fouls_first_time))
-    fouls.append(copy(visit_fouls_second_time))
-
-    conner.append(copy(home_conner_first_time))
-    conner.append(copy(home_conner_second_time))
-    conner.append(copy(visit_conner_first_time))
-    conner.append(copy(visit_conner_second_time))
-
-    shots_block.append(copy(home_kick_block_first_time))
-    shots_block.append(copy(home_kick_block_second_time))
-    shots_block.append(copy(visit_kick_block_first_time))
-    shots_block.append(copy(visit_kick_block_second_time))
-
-    lost_opportunuty.append(copy(home_lost_opportunity_first_time))
-    lost_opportunuty.append(copy(home_lost_opportunity_second_time))
-    lost_opportunuty.append(copy(visit_lost_opportunity_first_time))
-    lost_opportunuty.append(copy(visit_lost_opportunity_second_time))
-
-    kick_saved.append(copy(home_kick_saved_first_time))
-    kick_saved.append(copy(home_kick_saved_second_time))
-    kick_saved.append(copy(visit_kick_saved_first_time))
-    kick_saved.append(copy(visit_kick_saved_second_time))
-
-    offside.append(copy(home_offside_first_time))
-    offside.append(copy(home_offside_second_time))
-    offside.append(copy(visit_offside_first_time))  
-    offside.append(copy(visit_offside_second_time))
-
-    return fouls, conner, shots_block, lost_opportunuty, kick_saved, offside
 
 
+    dict_main.the_dict["fouls_home_first_time"].append(copy(home_fouls_first_time))
+    dict_main.the_dict["fouls_home_second_time"].append(copy(home_fouls_second_time))
+    dict_main.the_dict["fouls_visit_first_time"].append(copy(visit_fouls_first_time))
+    dict_main.the_dict["fouls_visit_second_time"].append(copy(visit_fouls_second_time))
+
+    dict_main.the_dict["conner_home_first_time"].append(copy(home_conner_first_time))
+    dict_main.the_dict["conner_home_second_time"].append(copy(home_conner_second_time))
+    dict_main.the_dict["conner_visit_first_time"].append(copy(visit_conner_first_time))
+    dict_main.the_dict["conner_visit_second_time"].append(copy(visit_conner_second_time))
+
+    dict_main.the_dict["shots_block_home_first_time"].append(copy(home_kick_block_first_time))
+    dict_main.the_dict["shots_block_home_second_time"].append(copy(home_kick_block_second_time))
+    dict_main.the_dict["shots_block_visit_first_time"].append(copy(visit_kick_block_first_time))
+    dict_main.the_dict["shots_block_visit_second_time"].append(copy(visit_kick_block_second_time))
+
+    dict_main.the_dict["lost_opportunity_home_first_time"].append(copy(home_lost_opportunity_first_time))
+    dict_main.the_dict["lost_opportunity_home_second_time"].append(copy(home_lost_opportunity_second_time))
+    dict_main.the_dict["lost_opportunity_visit_first_time"].append(copy(visit_lost_opportunity_first_time))
+    dict_main.the_dict["lost_opportunity_visit_second_time"].append(copy(visit_lost_opportunity_second_time))
+
+    dict_main.the_dict["kick_saved_home_first_time"].append(copy(home_kick_saved_first_time))
+    dict_main.the_dict["kick_saved_home_second_time"].append(copy(home_kick_saved_second_time))
+    dict_main.the_dict["kick_saved_visit_first_time"].append(copy(visit_kick_saved_first_time))
+    dict_main.the_dict["kick_saved_visit_second_time"].append(copy(visit_kick_saved_second_time))
+
+    dict_main.the_dict["offside_home_first_time"].append(copy(home_offside_first_time))
+    dict_main.the_dict["offside_home_second_time"].append(copy(home_offside_second_time))
+    dict_main.the_dict["offside_visit_first_time"].append(copy(visit_offside_first_time))
+    dict_main.the_dict["offside_visit_second_time"].append(copy(visit_offside_second_time))
 
 
-        
+    home_fouls_first_time.clear()
+    visit_fouls_first_time.clear()
+    home_fouls_second_time.clear()
+    visit_fouls_second_time.clear()         
+    home_conner_first_time.clear()
+    visit_conner_first_time.clear()
+    home_conner_second_time.clear()
+    visit_conner_second_time.clear()
+    home_kick_block_first_time.clear()
+    visit_kick_block_first_time.clear()
+    home_kick_block_second_time.clear()
+    visit_kick_block_second_time.clear()
+    home_lost_opportunity_first_time.clear()
+    visit_lost_opportunity_first_time.clear()
+    home_lost_opportunity_second_time.clear()           
+    visit_lost_opportunity_second_time.clear()
+    home_kick_saved_first_time.clear()
+    visit_kick_saved_first_time.clear()
+    home_kick_saved_second_time.clear()
+    visit_kick_saved_second_time.clear()
+    home_offside_first_time.clear()
+    visit_offside_first_time.clear()        
+    home_offside_second_time.clear()
+    visit_offside_second_time.clear()
+

@@ -7,5 +7,4 @@ from bs4 import BeautifulSoup
 
 import options
 
-thelist = []
-thelist = options.Options()
+options.Options()

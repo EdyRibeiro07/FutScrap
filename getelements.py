@@ -9,6 +9,7 @@ from copy import copy
 
 import treatthedate
 import getcomments
+import dict_main
 
 list_temp = []
 
@@ -55,26 +56,24 @@ def Get_Elements(a): ### em produção o paramentro correto é "list_doms:list"
         #SCRAP COMENTS:::
 
         for element in list_temp: # PARÂMETRO ORIGINAL DO FOR 'comments_elements'
-            comment = getcomments.Get_Comments(element, team_home, team_visit) 
-            print(comment)
+            getcomments.Get_Comments(element, team_home, team_visit) 
+    
  
         
         
         #APPENDS
-        list_.append(copy(date.strip()))
-        list_.append(copy(city.strip()))
-        list_.append(copy(country.strip()))
-        list_.append(copy(stadium.text.strip()))
-        list_.append(copy(element_tour.text.strip()))
-        list_.append(copy(team_home))
-        list_.append(copy(team_visit))
-        list_.append(copy(public_03.strip()))
-        thelist.append(copy(list_))
+        dict_main.the_dict["home_team"].append(copy(team_home))
+        dict_main.the_dict["visit_team"].append(copy(team_visit))
+        dict_main.the_dict["date"].append(copy(date.strip()))
+        dict_main.the_dict["city"].append(copy(city.strip()))
+        dict_main.the_dict["country"].append(copy(country.strip()))
+        dict_main.the_dict["stadium"].append(copy(stadium.text.strip()))
+        dict_main.the_dict["tournament"].append(copy(element_tour.text.strip()))
+        dict_main.the_dict["public"].append(copy(public_03.strip()))
 
-        for i in thelist:
-            print("")
-            print(i)
-        
+
         list_.clear()
+
+    print(dict_main.the_dict)
     
-    return thelist
+    return dict_main.the_dict
