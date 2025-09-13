@@ -9,7 +9,7 @@ headers = {
 'User-Agent': "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36"
 }
 
-response = requests.get('https://www.espn.com.br/futebol/comentario/_/jogoId/733439', headers=headers)
+response = requests.get('https://www.espn.com.br/futebol/comentario/_/jogoId/733453', headers=headers)
 dom = BeautifulSoup(response.text, 'html.parser')
 
 with open("html.md", "w") as arquivo:

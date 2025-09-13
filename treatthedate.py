@@ -39,13 +39,15 @@ def Treat_The_Date(date_element):
     text_07 = text_06.replace(" ", "")
 
 
-    count_text_07 = len(text_07)
+    count_text_07 = len(text_07.strip())
  
     if count_text_07 <= 7:
-        text_08 = zero + text_07
-    else:
-        text_08 =  text_07
 
-    print("DATA TRATADA: ", text_08.strip())
+        text_08 = zero + text_07.strip()
+    else:
+
+        text_08 =  text_07.strip()
+
+    print("DATA TRATADA: ", text_08)
 
     return text_08

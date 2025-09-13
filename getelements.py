@@ -4,6 +4,7 @@
 
 from bs4 import BeautifulSoup
 from copy import copy
+import pandas as pd
 
 # Importações Locais
 
@@ -23,13 +24,14 @@ with open("html.md", "r") as arquivo_01:
 def Get_Elements(a): ### em produção o paramentro correto é "list_doms:list"
 
     
-    thelist = []
+
     list_ = []
    
     
     for dom in a: ### em produção o paramentro correto é "list_doms"
         element_tour = dom.find('span', class_ ='XSdof')
         list_teams = dom.find_all('span', class_ = 'NMnSM') 
+        print(list_teams)
         team_home = list_teams[0].text.strip()
         team_visit = list_teams[1].text.strip()
         info = dom.find('div', class_="ContentList") 
@@ -77,3 +79,5 @@ def Get_Elements(a): ### em produção o paramentro correto é "list_doms:list"
     print(dict_main.the_dict)
     
     return dict_main.the_dict
+
+Get_Elements(list_temp)### Depois Excluir essa linha. apenas para teste.

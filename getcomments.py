@@ -9,39 +9,82 @@ def Get_Comments(element, team_home, team_visit):
     visit_fouls_first_time = []
     home_fouls_second_time = []
     visit_fouls_second_time = []
+    home_fouls_third_time = []
+    visit_fouls_third_time = []
+    home_fouls_fourth_time = []
+    visit_fouls_fourth_time = []
 
     home_conner_first_time = []
     visit_conner_first_time = []
     home_conner_second_time = []
     visit_conner_second_time = []
+    home_conner_third_time = []
+    visit_conner_third_time = []
+    home_conner_fourth_time = []
+    visit_conner_fourth_time = []
 
     home_kick_block_first_time = []
     visit_kick_block_first_time = []
     home_kick_block_second_time = []
     visit_kick_block_second_time = []
+    home_kick_block_third_time = []
+    visit_kick_block_third_time = []
+    home_kick_block_fourth_time = []
+    visit_kick_block_fourth_time = []
 
     home_lost_opportunity_first_time = []
     visit_lost_opportunity_first_time = []
     home_lost_opportunity_second_time = []
     visit_lost_opportunity_second_time = []
+    home_lost_opportunity_third_time = []
+    visit_lost_opportunity_third_time = []
+    home_lost_opportunity_fourth_time = []
+    visit_lost_opportunity_fourth_time = []
 
     home_kick_saved_first_time = []
     visit_kick_saved_first_time = []
     home_kick_saved_second_time = []
     visit_kick_saved_second_time = []
+    home_kick_saved_third_time = []
+    visit_kick_saved_third_time = []
+    home_kick_saved_fourth_time = []
+    visit_kick_saved_fourth_time = []
 
     home_offside_first_time = []
     visit_offside_first_time = []
     home_offside_second_time = []
     visit_offside_second_time = []  
+    home_offside_third_time = []
+    visit_offside_third_time = []
+    home_offside_fourth_time = []
+    visit_offside_fourth_time = []
 
+    home_yellow_card_first_time = []
+    visit_yellow_card_first_time = []
+    home_yellow_card_second_time = []
+    visit_yellow_card_second_time = []
+    home_yellow_card_third_time = []
+    visit_yellow_card_third_time = []
+    home_yellow_card_fourth_time = []
+    visit_yellow_card_fourth_time = []
+
+    home_red_card_first_time = []
+    visit_red_card_first_time = []
+    home_red_card_second_time = []
+    visit_red_card_second_time = []
+    home_red_card_third_time = []
+    visit_red_card_third_time = []
+    home_red_card_fourth_time = []
+    visit_red_card_fourth_time = []
 
     elements = element.find_all('div', class_ = 'MatchCommentary__Comment')
-
+    elements.reverse()
     
+    time = 1  ### 1 = 1º tempo /// 2 = 2º tempo
+    extra_time = False ### Variável para indicar se o tempo extra foi detectado
     
     for e in elements:
-        time = 2  ### 1 = 1º tempo /// 2 = 2º tempo
+        
         minute_element = e.find('div', class_ = 'MatchCommentary__Comment__Timestamp')  
         minute_01 = minute_element.text.strip()
         minute_02 = minute_01.replace("'", "")  
@@ -54,184 +97,896 @@ def Get_Comments(element, team_home, team_visit):
 
         if "FALTA COMETIDA" in comment_01:
 
-            if minute_03 < 75 and time == 2:
+            if time == 1:
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_fouls_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_fouls_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_fouls_first_time.append(minute_03)
+                    home_fouls_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_fouls_first_time.append(minute_03)
-
-            if minute_03 > 45 and time == 2: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_fouls_second_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_fouls_second_time.append(minute_03)
+                    visit_fouls_fourth_time.append(minute_03)
 
         if "ESCANTEIO" in comment_01:
 
-            if minute_03 < 75 and time == 2:
+            if time == 1:
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_conner_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_conner_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_conner_first_time.append(minute_03)
+                    home_conner_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_conner_first_time.append(minute_03)
-
-            if minute_03 > 45 and time == 2: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_conner_second_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_conner_second_time.append(minute_03)
+                    visit_conner_fourth_time.append(minute_03)
 
         if "FINALIZAÇÃO BLOQUEADA" in comment_01:
 
 
-            if minute_03 < 75 and time == 2:
+            if time == 1:
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_block_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_block_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_kick_block_first_time.append(minute_03)
+                    home_kick_block_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_kick_block_first_time.append(minute_03)
-
-            if minute_03 > 45 and time == 2: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_kick_block_second_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_kick_block_second_time.append(minute_03)
+                    visit_kick_block_fourth_time.append(minute_03)
 
         if "OPORTUNIDADE PERDIDA" in comment_01:
 
 
-            if minute_03 < 75 and time == 2:
+            if time == 1:
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_lost_opportunity_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_lost_opportunity_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_lost_opportunity_first_time.append(minute_03)
+                    home_lost_opportunity_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_lost_opportunity_first_time.append(minute_03)
-
-            if minute_03 > 45 and time == 2: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_lost_opportunity_second_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_lost_opportunity_second_time.append(minute_03)
+                    visit_lost_opportunity_fourth_time.append(minute_03)
 
         if "FINALIZAÇÃO DEFENDIDA" in comment_01:
 
-            if minute_03 < 75 and time == 2:
+            if time == 1:
 
-                if "+" in minute_02 and time == 2:
-                    time = 1
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_kick_saved_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_kick_saved_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_kick_saved_first_time.append(minute_03)
+                    home_kick_saved_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_kick_saved_first_time.append(minute_03)
-
-            if minute_03 > 45 and time == 2: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_kick_saved_second_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_kick_saved_second_time.append(minute_03)
+                    visit_kick_saved_fourth_time.append(minute_03)
 
         if "IMPEDIMENTO" in comment_01:
 
-            if minute_03 < 90 and time == 2 and "+" in minute_02:         
-                 
-    
-                time = 1
+            if time == 1:
+
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_offside_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_offside_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_offside_first_time.append(minute_03)
+                    home_offside_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_offside_first_time.append(minute_03)
+                    visit_offside_fourth_time.append(minute_03)
 
-            if minute_03 < 90 and time == 1 and "+" in minute_02:         
-                 
+        if "CARTÃO AMARELO" in comment_01:
+
+            if time == 1:
+
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_yellow_card_fourth_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_yellow_card_fourth_time.append(minute_03)
+
+            elif time == 4:
 
                 if team_home.upper() in comment_01:
 
-                    home_offside_first_time.append(minute_03)
+                    home_yellow_card_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_offside_first_time.append(minute_03)
+                    visit_yellow_card_fourth_time.append(minute_03)          
+                    
+        if "CARTÃO VERMELHO" in comment_01:
+            
+            if time == 1:
 
-            if minute_03 > 45 and time == 2: 
+                if minute_03 <= 45:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_first_time.append(minute_03)
+
+                elif minute_03 > 45 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_first_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_first_time.append(minute_03)
+                else:
+
+                    time = 2
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_second_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_second_time.append(minute_03)
+
+            elif time == 2: 
+
+                if minute_03 <= 90:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_second_time.append(minute_03)
+
+                elif minute_03 > 90 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_second_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_second_time.append(minute_03)
+                else:
+
+                    time = 3
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_third_time.append(minute_03)
+                    
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_third_time.append(minute_03)
+
+            elif time == 3:
+
+                if minute_03 <= 105:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_third_time.append(minute_03)
+
+                elif minute_03 > 105 and "+" in minute_02:
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_third_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_third_time.append(minute_03)
+                else:
+
+                    time = 4
+
+                    if team_home.upper() in comment_01:
+
+                        home_red_card_fourth_time.append(minute_03)
+
+                    if team_visit.upper() in comment_01:
+
+                        visit_red_card_fourth_time.append(minute_03)
                 
+            elif time == 4:
+
                 if team_home.upper() in comment_01:
 
-                    home_offside_second_time.append(minute_03)
+                    home_red_card_fourth_time.append(minute_03)
 
                 if team_visit.upper() in comment_01:
 
-                    visit_offside_second_time.append(minute_03)
+                    visit_red_card_fourth_time.append(minute_03)
 
-            if minute_03 <= 45 and time == 1: 
-                
-                if team_home.upper() in comment_01:
-
-                    home_offside_first_time.append(minute_03)
-
-                if team_visit.upper() in comment_01:
-
-                    visit_offside_first_time.append(minute_03)
-
-       
-        
-        
-        
-        
-        
-        
         # APPENDS
 
 
@@ -239,55 +994,122 @@ def Get_Comments(element, team_home, team_visit):
     dict_main.the_dict["fouls_home_second_time"].append(copy(home_fouls_second_time))
     dict_main.the_dict["fouls_visit_first_time"].append(copy(visit_fouls_first_time))
     dict_main.the_dict["fouls_visit_second_time"].append(copy(visit_fouls_second_time))
+    dict_main.the_dict["fouls_home_third_time"].append(copy(home_fouls_third_time))
+    dict_main.the_dict["fouls_home_fourth_time"].append(copy(home_fouls_fourth_time))
+    dict_main.the_dict["fouls_visit_third_time"].append(copy(visit_fouls_third_time))
+    dict_main.the_dict["fouls_visit_fourth_time"].append(copy(visit_fouls_fourth_time))
 
     dict_main.the_dict["conner_home_first_time"].append(copy(home_conner_first_time))
     dict_main.the_dict["conner_home_second_time"].append(copy(home_conner_second_time))
     dict_main.the_dict["conner_visit_first_time"].append(copy(visit_conner_first_time))
     dict_main.the_dict["conner_visit_second_time"].append(copy(visit_conner_second_time))
+    dict_main.the_dict["conner_home_third_time"].append(copy(home_conner_third_time))
+    dict_main.the_dict["conner_home_fourth_time"].append(copy(home_conner_fourth_time))
+    dict_main.the_dict["conner_visit_third_time"].append(copy(visit_conner_third_time))
+    dict_main.the_dict["conner_visit_fourth_time"].append(copy(visit_conner_fourth_time))
 
     dict_main.the_dict["shots_block_home_first_time"].append(copy(home_kick_block_first_time))
     dict_main.the_dict["shots_block_home_second_time"].append(copy(home_kick_block_second_time))
     dict_main.the_dict["shots_block_visit_first_time"].append(copy(visit_kick_block_first_time))
     dict_main.the_dict["shots_block_visit_second_time"].append(copy(visit_kick_block_second_time))
+    dict_main.the_dict["shots_block_home_third_time"].append(copy(home_kick_block_third_time))
+    dict_main.the_dict["shots_block_home_fourth_time"].append(copy(home_kick_block_fourth_time))
+    dict_main.the_dict["shots_block_visit_third_time"].append(copy(visit_kick_block_third_time))
+    dict_main.the_dict["shots_block_visit_fourth_time"].append(copy(visit_kick_block_fourth_time))
 
     dict_main.the_dict["lost_opportunity_home_first_time"].append(copy(home_lost_opportunity_first_time))
     dict_main.the_dict["lost_opportunity_home_second_time"].append(copy(home_lost_opportunity_second_time))
     dict_main.the_dict["lost_opportunity_visit_first_time"].append(copy(visit_lost_opportunity_first_time))
     dict_main.the_dict["lost_opportunity_visit_second_time"].append(copy(visit_lost_opportunity_second_time))
+    dict_main.the_dict["lost_opportunity_home_third_time"].append(copy(home_lost_opportunity_third_time))
+    dict_main.the_dict["lost_opportunity_home_fourth_time"].append(copy(home_lost_opportunity_fourth_time))
+    dict_main.the_dict["lost_opportunity_visit_third_time"].append(copy(visit_lost_opportunity_third_time))
+    dict_main.the_dict["lost_opportunity_visit_fourth_time"].append(copy(visit_lost_opportunity_fourth_time))
 
     dict_main.the_dict["kick_saved_home_first_time"].append(copy(home_kick_saved_first_time))
     dict_main.the_dict["kick_saved_home_second_time"].append(copy(home_kick_saved_second_time))
     dict_main.the_dict["kick_saved_visit_first_time"].append(copy(visit_kick_saved_first_time))
     dict_main.the_dict["kick_saved_visit_second_time"].append(copy(visit_kick_saved_second_time))
+    dict_main.the_dict["kick_saved_home_third_time"].append(copy(home_kick_saved_third_time))
+    dict_main.the_dict["kick_saved_home_fourth_time"].append(copy(home_kick_saved_fourth_time))
+    dict_main.the_dict["kick_saved_visit_third_time"].append(copy(visit_kick_saved_third_time))
+    dict_main.the_dict["kick_saved_visit_fourth_time"].append(copy(visit_kick_saved_fourth_time))
 
     dict_main.the_dict["offside_home_first_time"].append(copy(home_offside_first_time))
     dict_main.the_dict["offside_home_second_time"].append(copy(home_offside_second_time))
     dict_main.the_dict["offside_visit_first_time"].append(copy(visit_offside_first_time))
     dict_main.the_dict["offside_visit_second_time"].append(copy(visit_offside_second_time))
+    dict_main.the_dict["offside_home_third_time"].append(copy(home_offside_third_time))
+    dict_main.the_dict["offside_home_fourth_time"].append(copy(home_offside_fourth_time))
+    dict_main.the_dict["offside_visit_third_time"].append(copy(visit_offside_third_time))
+    dict_main.the_dict["offside_visit_fourth_time"].append(copy(visit_offside_fourth_time))
+
+    dict_main.the_dict["yellow_card_home_first_time"].append(copy(home_yellow_card_first_time))
+    dict_main.the_dict["yellow_card_home_second_time"].append(copy(home_yellow_card_second_time))
+    dict_main.the_dict["yellow_card_visit_first_time"].append(copy(visit_yellow_card_first_time))
+    dict_main.the_dict["yellow_card_visit_second_time"].append(copy(visit_yellow_card_second_time))
+    dict_main.the_dict["yellow_card_home_third_time"].append(copy(home_yellow_card_third_time))
+    dict_main.the_dict["yellow_card_home_fourth_time"].append(copy(home_yellow_card_fourth_time))
+    dict_main.the_dict["yellow_card_visit_third_time"].append(copy(visit_yellow_card_third_time))
+    dict_main.the_dict["yellow_card_visit_fourth_time"].append(copy(visit_yellow_card_fourth_time))
+
+    dict_main.the_dict["red_card_home_first_time"].append(copy(home_red_card_first_time))
+    dict_main.the_dict["red_card_home_second_time"].append(copy(home_red_card_second_time))
+    dict_main.the_dict["red_card_visit_first_time"].append(copy(visit_red_card_first_time))
+    dict_main.the_dict["red_card_visit_second_time"].append(copy(visit_red_card_second_time))
+    dict_main.the_dict["red_card_home_third_time"].append(copy(home_red_card_third_time))
+    dict_main.the_dict["red_card_home_fourth_time"].append(copy(home_red_card_fourth_time))
+    dict_main.the_dict["red_card_visit_third_time"].append(copy(visit_red_card_third_time))
+    dict_main.the_dict["red_card_visit_fourth_time"].append(copy(visit_red_card_fourth_time))   
 
 
     home_fouls_first_time.clear()
     visit_fouls_first_time.clear()
     home_fouls_second_time.clear()
-    visit_fouls_second_time.clear()         
+    visit_fouls_second_time.clear()
+    home_fouls_third_time.clear()
+    visit_fouls_third_time.clear()
+    home_fouls_fourth_time.clear()
+    visit_fouls_fourth_time.clear()
     home_conner_first_time.clear()
     visit_conner_first_time.clear()
     home_conner_second_time.clear()
     visit_conner_second_time.clear()
+    home_conner_third_time.clear()
+    visit_conner_third_time.clear()
+    home_conner_fourth_time.clear()
+    visit_conner_fourth_time.clear()
     home_kick_block_first_time.clear()
     visit_kick_block_first_time.clear()
     home_kick_block_second_time.clear()
     visit_kick_block_second_time.clear()
+    home_kick_block_third_time.clear()
+    visit_kick_block_third_time.clear()
+    home_kick_block_fourth_time.clear()
+    visit_kick_block_fourth_time.clear()
     home_lost_opportunity_first_time.clear()
     visit_lost_opportunity_first_time.clear()
     home_lost_opportunity_second_time.clear()           
     visit_lost_opportunity_second_time.clear()
+    home_lost_opportunity_third_time.clear()
+    visit_lost_opportunity_third_time.clear()
+    home_lost_opportunity_fourth_time.clear()
+    visit_lost_opportunity_fourth_time.clear()
     home_kick_saved_first_time.clear()
     visit_kick_saved_first_time.clear()
     home_kick_saved_second_time.clear()
     visit_kick_saved_second_time.clear()
+    home_kick_saved_third_time.clear()
+    visit_kick_saved_third_time.clear()
+    home_kick_saved_fourth_time.clear()
+    visit_kick_saved_fourth_time.clear()
     home_offside_first_time.clear()
     visit_offside_first_time.clear()        
     home_offside_second_time.clear()
     visit_offside_second_time.clear()
+    home_offside_third_time.clear()
+    visit_offside_third_time.clear()
+    home_offside_fourth_time.clear()
+    visit_offside_fourth_time.clear()
+
 
